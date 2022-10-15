@@ -12,11 +12,10 @@ import static UI.PageObject.PageSteps.TaskPageElementsSteps.*;
 import static utils.Configuration.getConfigurationValue;
 
 public final class JiraTest extends WebHooks {
-    private static final String PROJECT_NAME_WITH_CODE = "Test (TEST)";
-    private static final String PROJECT_NAME = "Test";
-    private static final String VERSION = "Version 2.0";
-    private static final String TASK_NAME = "New Task Error";
-
+    @Test
+    public void Test_PrintSystemProperty() {
+        System.out.println(getConfigurationValue("task_type_error"));
+    }
     @Test
     @DisplayName("Проверка авторизации пользователя.")
     public void Test_UserIsAuthorized() {
@@ -27,53 +26,53 @@ public final class JiraTest extends WebHooks {
     @Test
     @DisplayName("Проверка перехода на проект.")
     public void Test_ProjectIsOpen() {
-        openProject(PROJECT_NAME_WITH_CODE);
-        checkProjectName(PROJECT_NAME);
+        openProject(getConfigurationValue("project_name_with_code"));
+        checkProjectName(getConfigurationValue("project_name"));
     }
 
     @Test
     @DisplayName("Вывод количества задач в консоль.")
     public void Test_ShowNumberOfTasks() {
-        openProject(PROJECT_NAME_WITH_CODE);
+        openProject(getConfigurationValue("project_name_with_code"));
         clickTasks();
-        changeFiltersTo("Все задачи");
+        changeFiltersTo(getConfigurationValue("displayFilter_allTasks"));
         printNumberOfTasks();
     }
 
     @Test
     @DisplayName("Проверка статуса задачи и привязки затронутой версии.")
     public void Test_GetTaskStatus() {
-        openProject(PROJECT_NAME_WITH_CODE);
-        searchTask("TEST-21967");
+        openProject(getConfigurationValue("project_name_with_code"));
+        searchTask(getConfigurationValue("task_connectedTask"));
         checkTaskStatusIsSet();
-        checkFixInVersion(VERSION);
+        checkFixInVersion(getConfigurationValue("task_fix_in_version"));
     }
 
     @Test
     @DisplayName("Создание задачи и проверка смены статуса.")
     public void Test_CreateTask() {
-        openProject(PROJECT_NAME_WITH_CODE);
+        openProject(getConfigurationValue("project_name_with_code"));
         clickTasks();
         newTaskWithDialogue();
-        setTaskFields("Ошибка",
-                TASK_NAME,
-                "Here is a task description.",
-                "Version 2.0",
-                "Here is some environment.",
-                "Version 2.0",
-                "TEST-21967");
+        setTaskFields(getConfigurationValue("task_type_error"),
+                getConfigurationValue("new_task_name"),
+                getConfigurationValue("task_description"),
+                getConfigurationValue("task_fix_in_version"),
+                getConfigurationValue("task_environment"),
+                getConfigurationValue("task_affected_version"),
+                getConfigurationValue("task_connectedTask"));
         acceptAndCreateTask();
-        searchCreatedTask(TASK_NAME);
+        searchCreatedTask(getConfigurationValue("new_task_name"));
 
-        checkTaskStatus("СДЕЛАТЬ");
+        checkTaskStatus(getConfigurationValue("status_toDo"));
 
         setStatusInProgress();
-        checkChangedTaskStatus("В РАБОТЕ");
+        checkChangedTaskStatus(getConfigurationValue("status_inProgress"));
 
         setStatusResolved();
-        checkChangedTaskStatus("РЕШЕННЫЕ");
+        checkChangedTaskStatus(getConfigurationValue("status_resolved"));
 
         setStatusDone();
-        checkChangedTaskStatus("ГОТОВО");
+        checkChangedTaskStatus(getConfigurationValue("status_done"));
     }
 }

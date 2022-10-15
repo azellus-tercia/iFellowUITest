@@ -1,6 +1,5 @@
 package UI.PageObject.PageSteps;
 
-import io.cucumber.java.en.Then;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 
@@ -12,7 +11,6 @@ public final class ProfilePageElementsSteps {
         return displayedUserName.getText().trim();
     }
 
-    @Then("Пользователь {string} авторизован")
     @Step("Пользователь {username} авторизован")
     public static void checkUserIsLogged(String username) {
         Assertions.assertEquals(username, getDisplayedUsername(),

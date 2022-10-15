@@ -1,7 +1,6 @@
 package UI.PageObject.PageSteps;
 
 import com.codeborne.selenide.Condition;
-import io.cucumber.java.en.And;
 import io.qameta.allure.Step;
 
 import static UI.PageObject.PageElements.NewTaskWindowElements.*;
@@ -31,13 +30,11 @@ public final class NewTaskWindowElementsSteps {
         taskConnected.sendKeys(task);
     }
 
-    @And("Сохранить и создать задачу")
     @Step("Сохранить и создать задачу")
     public static void acceptAndCreateTask() {
         submitButton.click();
     }
 
-    @And("Заполнить поля задачи: {string}, {string}, {string}, {string}, {string}, {string}, {string}")
     @Step("Заполнить поля задачи: {taskType}, {taskName}, {taskDescription}, {taskFixInVersion}, " +
             "{taskEnvironment}, {taskAffectedVersion}, {connectedTask}")
     public static void setTaskFields(String taskType, String taskName, String taskDescription, String taskFixInVersion,
