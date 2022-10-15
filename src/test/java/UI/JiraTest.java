@@ -13,11 +13,6 @@ import static utils.Configuration.getConfigurationValue;
 
 public final class JiraTest extends WebHooks {
     @Test
-    public void Test_PrintSystemProperty() {
-        System.out.println(getConfigurationValue("task_type_error"));
-
-    }
-    @Test
     @DisplayName("Проверка авторизации пользователя.")
     public void Test_UserIsAuthorized() {
         goToUserPage();
