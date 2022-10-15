@@ -17,7 +17,8 @@ public abstract class Configuration {
     static {
         properties = new Properties();
         try (InputStream inputStream = Configuration.class.getResourceAsStream(CONFIGURATION_FILE)) {
-            properties.load(inputStream);
+//            properties.load(inputStream);
+            properties.load(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new RuntimeException("Failed to read file" + CONFIGURATION_FILE, e);
         }
