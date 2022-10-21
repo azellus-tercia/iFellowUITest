@@ -13,6 +13,11 @@ public final class HeaderElementsSteps {
         logOutButton.click();
     }
 
+    public void openAllCreatedTasks() {
+        tasksButton.click();
+        searchTasks.click();
+    }
+
     @Step("Открыть страницу пользователя")
     public static void goToUserPage() {
         userHeaderMenuButton.click();

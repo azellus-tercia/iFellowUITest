@@ -1,13 +1,14 @@
 package UI.PageObject.PageSteps;
 
-import UI.PageObject.PageElements.TaskPageElements;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 
+import static UI.PageObject.PageElements.TaskPageElements.*;
+
 public final class TaskPageElementsSteps {
     public static String getTaskStatus() {
-        return TaskPageElements.taskStatus.getText();
+        return taskStatus.getText();
     }
 
     @Step("Проверить, что статус задачи равен {taskStatus}")
@@ -21,8 +22,8 @@ public final class TaskPageElementsSteps {
     }
 
     public static String getChangedTaskStatus() {
-        String status = TaskPageElements.taskStatus.getText();
-        return TaskPageElements.taskStatus.shouldNotHave(Condition.exactText(status)).getText();
+        String status = taskStatus.getText();
+        return taskStatus.shouldNotHave(Condition.exactText(status)).getText();
     }
 
     @Step("Проверить, что новый статус задачи равен {taskStatus}")
@@ -31,7 +32,7 @@ public final class TaskPageElementsSteps {
     }
 
     public static String getFixInVersion() {
-        return TaskPageElements.taskFixInVersion.getText();
+        return taskFixInVersion.getText();
     }
 
     @Step("Проверить, что задача должна быть исправлена в {version}")
@@ -41,20 +42,20 @@ public final class TaskPageElementsSteps {
 
     @Step("Поменять статус задачи на \"В работе\"")
     public static void setStatusInProgress() {
-        TaskPageElements.taskInProgressButton.click();
+        taskInProgressButton.click();
     }
 
     @Step("Поменять статус задачи на \"Решенные\"")
     public static void setStatusResolved() {
-        TaskPageElements.taskBusinessProcess.click();
-        TaskPageElements.taskResolved.click();
-        TaskPageElements.taskAccept.click();
+        taskBusinessProcessButton.click();
+        taskResolvedButton.click();
+        taskAcceptButton.click();
     }
 
     @Step("Поменять статус задачи на \"Готово\"")
     public static void setStatusDone() {
-        TaskPageElements.taskBusinessProcess.click();
-        TaskPageElements.taskDone.click();
-        TaskPageElements.taskAccept.click();
+        taskBusinessProcessButton.click();
+        taskDoneButton.click();
+        taskAcceptButton.click();
     }
 }

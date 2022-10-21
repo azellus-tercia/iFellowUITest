@@ -1,11 +1,11 @@
 package UI.PageObject.PageSteps;
 
-import static UI.PageObject.PageElements.ProjectPageElements.*;
 import com.codeborne.selenide.Condition;
 import UI.ProjectUtils.Waiters;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 
+import static UI.PageObject.PageElements.ProjectPageElements.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -35,13 +35,21 @@ public final class ProjectPageElementsSteps implements Waiters {
         return waitFor(numberOfTasks, 1000);
     }
 
-    public static String getNumberOfTasks() {
+    @Step("Получить количество задач после применения фильтра \"Все задачи\"")
+    public static String getNumberOfFilteredTasks() {
         return new ProjectPageElementsSteps().waitForElementIsUpdated().substring("1 из ".length());
     }
 
-    @Step("Вывести общее кличество задач")
-    public static void printNumberOfTasks() {
-        System.out.println(getNumberOfTasks());
+    @Step("Получить количество всех созданных задач")
+    public static String getNumberOfAllCreatedTasks() {
+        new HeaderElementsSteps().openAllCreatedTasks();
+        return numberOfTasks.getText().substring("1 из ".length());
+    }
+
+    @Step("Сравнить количество созданных задач и количество задач с примененным фильтром \"Все задачи\"")
+    public static void checkNumberOfFilteredTasks() {
+        Assertions.assertEquals(getNumberOfFilteredTasks(), getNumberOfAllCreatedTasks(),
+                "Количество всех созданных задач не равно количеству задач с фильтром \"Все задачи\"");
     }
 
     @Step("Нажать \"Создать задачу\" внизу экрана и выбрать \"Открыть в диалоговом окне\"")

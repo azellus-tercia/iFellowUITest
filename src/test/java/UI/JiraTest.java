@@ -32,7 +32,7 @@ public final class JiraTest extends WebHooks {
         openProject(getConfigurationValue("project_name_with_code"));
         clickTasks();
         changeFiltersTo(getConfigurationValue("displayFilter_allTasks"));
-        printNumberOfTasks();
+        checkNumberOfFilteredTasks();
     }
 
     @Test
